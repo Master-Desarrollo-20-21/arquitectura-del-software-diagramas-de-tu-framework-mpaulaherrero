@@ -1,0 +1,30 @@
+@startuml
+
+title "Django - Diagrama Secuencia"
+
+actor Actor
+control "Middlewares Handler" as RM 
+control "URL Dispatcher" as URL 
+control "View" as VIEW <<Controller>> 
+control "Render" as REN 
+boundary "Template" as TEM <<View>> 
+entity "Model" as MODEL <<Model>>
+entity "Managers(ORM)" as ORM
+database DB
+
+Actor -> RM: http request
+RM -> URL: match(url)
+URL ->  VIEW: call(request, arguments)
+VIEW -> MODEL: executeQuerySet()
+MODEL -> ORM
+ORM -> DB
+DB -> ORM
+ORM -> MODEL
+MODEL -> VIEW
+VIEW -> REN: call(request, template_name, values)
+REN -> TEM
+TEM -> REN
+REN -> RM
+RM -> Actor: http response
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+
+title Django - Diagrama Paquetes
+
+
+package URLconf <<Rectangle>>{
+}
+
+package Views <<Rectangle>> {
+}
+
+package Templates <<Rectangle>> {
+}
+
+package Models <<Rectangle>> {
+}
+
+package Database <<Database>> {
+}
+
+URLconf --> Views
+Views ..> Templates: render()
+Views --> Models
+Models --> Database
+
+@enduml
